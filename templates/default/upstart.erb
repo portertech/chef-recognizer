@@ -1,0 +1,9 @@
+# Upstart: /etc/init/recognizer.conf
+# Managed by OpsChef
+
+description "recognizer"
+
+respawn
+
+chdir <%= @directory %>
+exec sudo -u <%= @user %> sh -c "<%= @command %> >> <%= @log_file %> 2>&1"
