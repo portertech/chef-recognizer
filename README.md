@@ -15,7 +15,7 @@ RECIPES
 recognizer::default
 -------------------
 
-Installs, configures, and runs Recognizer.
+Installs, configures, and runs the Recognizer service.
 
 recognizer::jar
 ---------------
@@ -52,6 +52,6 @@ default
 EXAMPLES
 ========
 
-`examples` contains a Bundler Gemfile, Librarian Chef Cheffile,
-Vagrant Vagrantfile, and an example role to test and evaluate
-Recognizer.
+The directory `examples` contains a Bundler Gemfile, Librarian Chef
+Cheffile, Vagrant Vagrantfile, and an example role to test and
+evaluate Recognizer.
