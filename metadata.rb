@@ -1,3 +1,4 @@
+name             "recognizer"
 maintainer       "Sean Porter Consulting"
 maintainer_email "portertech@gmail.com"
 license          "MIT"
