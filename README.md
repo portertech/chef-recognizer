@@ -39,7 +39,7 @@ default
 * `recognizer.librato.email`          - Librato Metrics email
 * `recognizer.librato.api_key`        - Librato Metrics API key
 * `recognizer.librato.flush_interval` - Batch flush interval
-* `recognizer.librato.metric_source`  - Metric source
+* `recognizer.librato.metric_source`  - metric source
 
 * `recognizer.tcp.port`    - TCP socket port
 * `recognizer.tcp.threads` - number of TCP server threads
