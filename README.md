@@ -2,7 +2,9 @@ DESCRIPTION
 ===========
 
 Installs and configures Recognizer, a Graphite Carbon impostor that
-sends metrics to Librato Metrics. Recognizer is an executable JAR.
+sends metrics to Librato Metrics.
+
+Recognizer is an executable JAR.
 
 COOKBOOK DEPENDENCIES
 =====================
