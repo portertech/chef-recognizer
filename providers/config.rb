@@ -26,7 +26,7 @@
 
 action :create do
   config = node.recognizer.to_hash.reject do |key, value|
-    %w[user directory log jar].include?(key)
+    %w[version user directory log jar].include?(key)
   end
   config_resource = @new_resource
   json_file ::File.join(node.recognizer.directory, "config.json") do
