@@ -30,14 +30,17 @@ directory node.recognizer.jar.directory do
   recursive true
 end
 
-version_file = File.join(node.recognizer.jar.directory, "VERSION")
+tar_name = "recognizer-#{node.recognizer.version}.tar"
+tar_file = File.join(node.recognizer.jar.directory, tar_name)
 
-remote_file File.join(node.recognizer.jar.directory, "recognizer.jar") do
-  source "https://github.com/downloads/portertech/recognizer/recognizer.jar"
-  mode "0755"
-  not_if { File.exists?(version_file) && File.open(version_file, "r").read.include?(node.recognizer.version) }
+execute "extract_recognizer_jar" do
+  cwd node.recognizer.jar.directory
+  command "tar -xf #{tar_name}"
+  action :nothing
 end
 
-file version_file do
-  content node.recognizer.version
+remote_file tar_file do
+  source "https://github.com/downloads/portertech/recognizer/#{tar_name}"
+  mode "0755"
+  notifies :run, 'execute[extract_recognizer_jar]', :immediate
 end

@@ -48,7 +48,7 @@ template "/etc/init/recognizer.conf" do
     :directory => node.recognizer.jar.directory,
     :user => node.recognizer.user,
     :command => "java -jar recognizer.jar -c #{node.recognizer.directory}/config.json",
-    :log_file => "#{node.recognizer.log.directory}/recognizer.log"
+    :log_file => "#{node.recognizer.log.directory}/service.log"
   )
   mode 0644
 end
@@ -56,5 +56,5 @@ end
 service "recognizer" do
   provider Chef::Provider::Service::Upstart
   action [:enable, :start]
-  subscribes :restart, resources(:recognizer_config => node.name), :delayed
+  subscribes :restart, resources(:recognizer_config => node.name, :execute => "extract_recognizer_jar"), :delayed
 end
