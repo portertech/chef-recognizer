@@ -1,6 +1,9 @@
 name "vagrant"
 description "Role for testing Recognizer"
-run_list("recipe[recognizer]")
+run_list(
+  "recipe[apt]",
+  "recipe[recognizer]"
+)
 
 override_attributes :recognizer => {
   :librato => {
