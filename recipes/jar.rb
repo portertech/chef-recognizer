@@ -42,5 +42,6 @@ end
 remote_file tar_file do
   source "https://github.com/downloads/portertech/recognizer/#{tar_name}"
   mode "0755"
+  action :create_if_missing
   notifies :run, 'execute[extract_recognizer_jar]', :immediate
 end
