@@ -7,15 +7,15 @@ to evaluate Librato Metrics without having to modify instrumentation.
 
 Recognizer is an executable JAR.
 
-COOKBOOK DEPENDENCIES
-=====================
-
-* java (available @ http://community.opscode.com/cookbooks/java)
-
 PLATFORMS
 =========
 
 * Ubuntu
+
+COOKBOOK DEPENDENCIES
+=====================
+
+* java (available @ http://community.opscode.com/cookbooks/java)
 
 RECIPES
 =======
