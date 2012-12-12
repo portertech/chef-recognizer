@@ -3,6 +3,7 @@ default.recognizer.user = "recognizer"
 default.recognizer.directory = "/etc/recognizer"
 default.recognizer.log.directory = "/var/log/recognizer"
 default.recognizer.jar.directory = "/srv/recognizer"
+default.recognizer.jar.max_heap = "256m"
 
 default.recognizer.librato.email = "EMAIL"
 default.recognizer.librato.api_key = "API_KEY"

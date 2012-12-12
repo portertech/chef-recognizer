@@ -40,14 +40,25 @@ directory node.recognizer.log.directory do
   mode 0755
 end
 
-recognizer_config node.name
+config_file = File.join(node.recognizer.directory, "config.json")
+
+recognizer_config = node.recognizer.to_hash.reject do |key, value|
+  %w[version user directory log jar].include?(key)
+end
+
+json_file config_file do
+  content recognizer_config
+  mode 0644
+end
+
+max_heap = node.recognizer.jar.max_heap
 
 template "/etc/init/recognizer.conf" do
   source "upstart.erb"
   variables(
-    :directory => node.recognizer.jar.directory,
+    :cwd => node.recognizer.jar.directory,
     :user => node.recognizer.user,
-    :command => "java -jar recognizer.jar -c #{node.recognizer.directory}/config.json",
+    :command => "java -Xmx#{max_heap} -Xms#{max_heap} -jar recognizer.jar -c #{config_file}",
     :log_file => "#{node.recognizer.log.directory}/service.log"
   )
   mode 0644
@@ -56,5 +67,5 @@ end
 service "recognizer" do
   provider Chef::Provider::Service::Upstart
   action [:enable, :start]
-  subscribes :restart, resources(:recognizer_config => node.name, :execute => "extract_recognizer_jar"), :delayed
+  subscribes :restart, resources(:json_file => config_file, :execute => "extract_recognizer_jar"), :delayed
 end

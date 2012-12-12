@@ -5,5 +5,5 @@ description "recognizer"
 
 respawn
 
-chdir <%= @directory %>
+chdir <%= @cwd %>
 exec sudo -u <%= @user %> sh -c "<%= @command %> >> <%= @log_file %> 2>&1"

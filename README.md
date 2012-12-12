@@ -2,7 +2,8 @@ DESCRIPTION
 ===========
 
 Installs and configures Recognizer, a Graphite Carbon impostor that
-sends metrics to Librato Metrics.
+sends metrics to Librato Metrics. Recognizer was created at Sonian,
+to evaluate Librato Metrics without having to modify instrumentation.
 
 Recognizer is an executable JAR.
 
@@ -10,6 +11,11 @@ COOKBOOK DEPENDENCIES
 =====================
 
 * java (available @ http://community.opscode.com/cookbooks/java)
+
+PLATFORMS
+=========
+
+* Ubuntu
 
 RECIPES
 =======
@@ -35,6 +41,7 @@ default
 * `recognizer.directory`     - configuration directory
 * `recognizer.log.directory` - log directory
 * `recognizer.jar.directory` - JAR directory
+* `recognizer.jar.max_heap`  - max Java heap to allocate
 
 * `recognizer.librato.email`          - Librato Metrics email
 * `recognizer.librato.api_key`        - Librato Metrics API key
