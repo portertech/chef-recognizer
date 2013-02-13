@@ -15,6 +15,7 @@ PLATFORMS
 COOKBOOK DEPENDENCIES
 =====================
 
+* apt (available @ http://community.opscode.com/cookbooks/apt)
 * java (available @ http://community.opscode.com/cookbooks/java)
 
 RECIPES
