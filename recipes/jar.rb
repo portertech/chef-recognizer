@@ -38,7 +38,6 @@ execute "extract_recognizer_jar" do
   cwd node.recognizer.jar.directory
   command "tar -xf #{tar_name}"
   action :nothing
-  notifies :restart, 'service[recognizer]', :delayed
 end
 
 remote_file tar_file do

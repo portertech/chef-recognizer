@@ -29,7 +29,7 @@ Installs, configures, and runs the Recognizer service.
 recognizer::jar
 ---------------
 
-Downloads the Recognizer executable JAR.
+Installs Java and downloads the Recognizer executable JAR.
 
 ATTRIBUTES
 ==========
