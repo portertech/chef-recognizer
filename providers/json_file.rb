@@ -25,7 +25,7 @@
 #
 
 def load_json(path)
-  JSON.parse(File.read(path)) rescue Hash.new
+  JSON.parse(::File.read(path)) rescue Hash.new
 end
 
 def dump_json(obj)
