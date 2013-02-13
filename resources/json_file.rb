@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: recognizer
-# Recipe:: default
+# Resource:: json_file
 #
 # Copyright 2012-2013, Sean Porter Consulting
 #
@@ -24,47 +24,13 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "recognizer::jar"
+actions :create
 
-directory node.recognizer.directory do
-  recursive true
-end
+attribute :path, :name_attribute => true
+attribute :mode, :kind_of => [String, Integer]
+attribute :content, :kind_of => Hash
 
-user node.recognizer.user do
-  home node.recognizer.directory
-  system true
-end
-
-directory node.recognizer.log.directory do
-  owner node.recognizer.user
-  mode 0755
-end
-
-config_file = File.join(node.recognizer.directory, "config.json")
-
-recognizer_config = node.recognizer.to_hash.reject do |key, value|
-  %w[version user directory log jar].include?(key)
-end
-
-recognizer_json_file config_file do
-  content recognizer_config
-  mode 0644
-end
-
-max_heap = node.recognizer.jar.max_heap
-
-template "/etc/init/recognizer.conf" do
-  source "upstart.erb"
-  variables(
-    :cwd => node.recognizer.jar.directory,
-    :user => node.recognizer.user,
-    :command => "java -Xmx#{max_heap} -Xms#{max_heap} -jar recognizer.jar -c #{config_file}",
-    :log_file => "#{node.recognizer.log.directory}/service.log"
-  )
-  mode 0644
-end
-
-service "recognizer" do
-  provider Chef::Provider::Service::Upstart
-  action [:enable, :start]
+def initialize(*args)
+  super
+  @action = :create
 end

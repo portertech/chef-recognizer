@@ -2,7 +2,7 @@
 # Cookbook Name:: recognizer
 # Recipe:: jar
 #
-# Copyright 2012, Sean Porter Consulting
+# Copyright 2012-2013, Sean Porter Consulting
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -24,7 +24,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "java::default"
+include_recipe "apt"
+include_recipe "java"
 
 directory node.recognizer.jar.directory do
   recursive true
@@ -37,10 +38,11 @@ execute "extract_recognizer_jar" do
   cwd node.recognizer.jar.directory
   command "tar -xf #{tar_name}"
   action :nothing
+  notifies :restart, 'service[recognizer]', :delayed
 end
 
 remote_file tar_file do
-  source "https://github.com/downloads/portertech/recognizer/#{tar_name}"
+  source "http://portertech.s3.amazonaws.com/recognizer/#{tar_name}"
   mode "0755"
   action :create_if_missing
   notifies :run, 'execute[extract_recognizer_jar]', :immediate

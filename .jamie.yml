@@ -1,0 +1,11 @@
+driver_plugin: lxc
+
+platforms:
+  - name: ubuntu
+    driver_config:
+      base_container: "ubuntu-1204"
+
+suites:
+  - name: default
+    run_list:
+      - "recipe[recognizer]"

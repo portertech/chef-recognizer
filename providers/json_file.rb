@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: recognizer
-# Recipe:: default
+# Provider:: json_file
 #
 # Copyright 2012-2013, Sean Porter Consulting
 #
@@ -24,47 +24,28 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "recognizer::jar"
-
-directory node.recognizer.directory do
-  recursive true
+def load_json(path)
+  JSON.parse(File.read(path)) rescue Hash.new
 end
 
-user node.recognizer.user do
-  home node.recognizer.directory
-  system true
+def dump_json(obj)
+  JSON.pretty_generate(obj) + "\n"
 end
 
-directory node.recognizer.log.directory do
-  owner node.recognizer.user
-  mode 0755
+def to_mash(obj)
+  Mash.from_hash(obj)
 end
 
-config_file = File.join(node.recognizer.directory, "config.json")
-
-recognizer_config = node.recognizer.to_hash.reject do |key, value|
-  %w[version user directory log jar].include?(key)
+def compare_content(path, content)
+  to_mash(load_json(path)) == to_mash(content)
 end
 
-recognizer_json_file config_file do
-  content recognizer_config
-  mode 0644
-end
-
-max_heap = node.recognizer.jar.max_heap
-
-template "/etc/init/recognizer.conf" do
-  source "upstart.erb"
-  variables(
-    :cwd => node.recognizer.jar.directory,
-    :user => node.recognizer.user,
-    :command => "java -Xmx#{max_heap} -Xms#{max_heap} -jar recognizer.jar -c #{config_file}",
-    :log_file => "#{node.recognizer.log.directory}/service.log"
-  )
-  mode 0644
-end
-
-service "recognizer" do
-  provider Chef::Provider::Service::Upstart
-  action [:enable, :start]
+action :create do
+  unless compare_content(new_resource.path, new_resource.content)
+    file new_resource.path do
+      mode new_resource.mode
+      content dump_json(new_resource.content)
+      notifies :restart, 'service[recognizer]', :delayed
+    end
+  end
 end

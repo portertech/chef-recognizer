@@ -57,10 +57,3 @@ default
 * `recognizer.amqp.vhost` - RabbitMQ vhost
 * `recognizer.amqp.user`  - RabbitMQ user name
 * `recognizer.amqp.pass`  - RabbitMQ user password
-
-EXAMPLES
-========
-
-The directory `examples` contains a Bundler Gemfile, Librarian Chef
-Cheffile, Vagrant Vagrantfile, and an example role to test and
-evaluate Recognizer.

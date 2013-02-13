@@ -1,5 +1,8 @@
 .DS_Store
 *.lock
 .vagrant
-examples/cookbooks
-examples/tmp
+.cache
+.bundle
+.librarian
+.jamie
+tmp
