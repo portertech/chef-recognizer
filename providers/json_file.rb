@@ -45,7 +45,7 @@ action :create do
     file new_resource.path do
       mode new_resource.mode
       content dump_json(new_resource.content)
-      notifies :restart, 'service[recognizer]', :delayed
+      notifies :restart, "service[recognizer]", :delayed
     end
   end
 end

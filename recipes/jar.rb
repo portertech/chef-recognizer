@@ -44,5 +44,5 @@ remote_file tar_file do
   source "http://portertech.s3.amazonaws.com/recognizer/#{tar_name}"
   mode "0755"
   action :create_if_missing
-  notifies :run, 'execute[extract_recognizer_jar]', :immediate
+  notifies :run, "execute[extract_recognizer_jar]", :immediate
 end

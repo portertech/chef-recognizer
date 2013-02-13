@@ -67,5 +67,5 @@ end
 service "recognizer" do
   provider Chef::Provider::Service::Upstart
   action [:enable, :start]
-  subscribes :restart, resources(:execute => "extract_recognizer_jar"), :delayed
+  subscribes :restart, "execute[extract_recognizer_jar]", :delayed
 end
